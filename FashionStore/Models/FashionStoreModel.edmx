@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FashionStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="idCustomer" />
+          </Key>
+          <Property Name="idCustomer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="identificacionNumber" Type="int" />
+          <Property Name="documentType" Type="nvarchar" MaxLength="255" />
+          <Property Name="pinture" Type="varbinary(max)" />
+          <Property Name="names" Type="nvarchar" MaxLength="255" />
+          <Property Name="surnames" Type="nvarchar" MaxLength="255" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="phone" Type="int" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+          <Property Name="city" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codeProduct" Type="nvarchar" MaxLength="255" />
+          <Property Name="idSupplier" Type="int" Nullable="false" />
+          <Property Name="picture" Type="varbinary(max)" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" />
+          <Property Name="price" Type="bigint" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Reserve">
+          <Key>
+            <PropertyRef Name="idReserve" />
+          </Key>
+          <Property Name="idReserve" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCustomer" Type="int" Nullable="false" />
+          <Property Name="idProduct" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="idSale" />
+          </Key>
+          <Property Name="idSale" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCustomer" Type="int" Nullable="false" />
+          <Property Name="idSeller" Type="int" Nullable="false" />
+          <Property Name="idProduct" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="total" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="idSeller" />
+          </Key>
+          <Property Name="idSeller" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pinture" Type="varbinary(max)" />
+          <Property Name="names" Type="nvarchar" MaxLength="255" />
+          <Property Name="surnames" Type="nvarchar" MaxLength="255" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="phone" Type="int" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="idSupplier" />
+          </Key>
+          <Property Name="idSupplier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nit" Type="int" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="phone" Type="int" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="fk_customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="idCustomer" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="idCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_customers">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Reserve" Type="Self.Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="idCustomer" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="idCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_products">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Reserve" Type="Self.Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_seller">
+          <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="idSeller" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="idSeller" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="idSupplier" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="idSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FashionStoreModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reserve" EntityType="Self.Reserve" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_customer" Association="Self.fk_customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="fk_customers" Association="Self.fk_customers">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Reserve" EntitySet="Reserve" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product" Association="Self.fk_product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="fk_products" Association="Self.fk_products">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Reserve" EntitySet="Reserve" />
+          </AssociationSet>
+          <AssociationSet Name="fk_seller" Association="Self.fk_seller">
+            <End Role="Seller" EntitySet="Seller" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="fk_supplier" Association="Self.fk_supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FashionStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="idCustomer" />
+          </Key>
+          <Property Name="idCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="identificacionNumber" Type="Int32" />
+          <Property Name="documentType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="pinture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="names" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="surnames" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sale" Relationship="Self.fk_customer" FromRole="Customer" ToRole="Sale" />
+          <NavigationProperty Name="Reserve" Relationship="Self.fk_customers" FromRole="Customer" ToRole="Reserve" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codeProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idSupplier" Type="Int32" Nullable="false" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int64" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sale" Relationship="Self.fk_product" FromRole="Product" ToRole="Sale" />
+          <NavigationProperty Name="Reserve" Relationship="Self.fk_products" FromRole="Product" ToRole="Reserve" />
+          <NavigationProperty Name="Supplier" Relationship="Self.fk_supplier" FromRole="Product" ToRole="Supplier" />
+        </EntityType>
+        <EntityType Name="Reserve">
+          <Key>
+            <PropertyRef Name="idReserve" />
+          </Key>
+          <Property Name="idReserve" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCustomer" Type="Int32" Nullable="false" />
+          <Property Name="idProduct" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Self.fk_customers" FromRole="Reserve" ToRole="Customer" />
+          <NavigationProperty Name="Product" Relationship="Self.fk_products" FromRole="Reserve" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="idSale" />
+          </Key>
+          <Property Name="idSale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCustomer" Type="Int32" Nullable="false" />
+          <Property Name="idSeller" Type="Int32" Nullable="false" />
+          <Property Name="idProduct" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="total" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="Self.fk_customer" FromRole="Sale" ToRole="Customer" />
+          <NavigationProperty Name="Product" Relationship="Self.fk_product" FromRole="Sale" ToRole="Product" />
+          <NavigationProperty Name="Seller" Relationship="Self.fk_seller" FromRole="Sale" ToRole="Seller" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="idSeller" />
+          </Key>
+          <Property Name="idSeller" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pinture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="names" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="surnames" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sale" Relationship="Self.fk_seller" FromRole="Seller" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="idSupplier" />
+          </Key>
+          <Property Name="idSupplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nit" Type="Int32" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="Self.fk_supplier" FromRole="Supplier" ToRole="Product" />
+        </EntityType>
+        <Association Name="fk_customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="idCustomer" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="idCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_customers">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Reserve" Type="Self.Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="idCustomer" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="idCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_products">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Reserve" Type="Self.Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="idSupplier" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="idSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_seller">
+          <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="idSeller" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="idSeller" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FashionStoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Reserve" EntityType="Self.Reserve" />
+          <EntitySet Name="Sale" EntityType="Self.Sale" />
+          <EntitySet Name="Seller" EntityType="Self.Seller" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
+          <AssociationSet Name="fk_customer" Association="Self.fk_customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="fk_customers" Association="Self.fk_customers">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Reserve" EntitySet="Reserve" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product" Association="Self.fk_product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="fk_products" Association="Self.fk_products">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Reserve" EntitySet="Reserve" />
+          </AssociationSet>
+          <AssociationSet Name="fk_supplier" Association="Self.fk_supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="fk_seller" Association="Self.fk_seller">
+            <End Role="Seller" EntitySet="Seller" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FashionStoreModelStoreContainer" CdmEntityContainer="FashionStoreEntities">
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="FashionStoreModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+                <ScalarProperty Name="identificacionNumber" ColumnName="identificacionNumber" />
+                <ScalarProperty Name="documentType" ColumnName="documentType" />
+                <ScalarProperty Name="pinture" ColumnName="pinture" />
+                <ScalarProperty Name="names" ColumnName="names" />
+                <ScalarProperty Name="surnames" ColumnName="surnames" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="city" ColumnName="city" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="FashionStoreModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="codeProduct" ColumnName="codeProduct" />
+                <ScalarProperty Name="idSupplier" ColumnName="idSupplier" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reserve">
+            <EntityTypeMapping TypeName="FashionStoreModel.Reserve">
+              <MappingFragment StoreEntitySet="Reserve">
+                <ScalarProperty Name="idReserve" ColumnName="idReserve" />
+                <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale">
+            <EntityTypeMapping TypeName="FashionStoreModel.Sale">
+              <MappingFragment StoreEntitySet="Sale">
+                <ScalarProperty Name="idSale" ColumnName="idSale" />
+                <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+                <ScalarProperty Name="idSeller" ColumnName="idSeller" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seller">
+            <EntityTypeMapping TypeName="FashionStoreModel.Seller">
+              <MappingFragment StoreEntitySet="Seller">
+                <ScalarProperty Name="idSeller" ColumnName="idSeller" />
+                <ScalarProperty Name="pinture" ColumnName="pinture" />
+                <ScalarProperty Name="names" ColumnName="names" />
+                <ScalarProperty Name="surnames" ColumnName="surnames" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="FashionStoreModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="idSupplier" ColumnName="idSupplier" />
+                <ScalarProperty Name="nit" ColumnName="nit" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
