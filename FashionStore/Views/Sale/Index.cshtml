@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FashionStore.Models.Sale>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.documentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.codeProduct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seller.names)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.documentType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.codeProduct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seller.names)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idSale }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idSale }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idSale })
+        </td>
+    </tr>
+}
+
+</table>

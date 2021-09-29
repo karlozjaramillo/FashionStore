@@ -1,0 +1,42 @@
+﻿@model FashionStore.Models.Reserve
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reserve</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.documentType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.documentType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.codeProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.codeProduct)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idReserve }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

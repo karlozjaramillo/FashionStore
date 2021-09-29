@@ -1,0 +1,45 @@
+﻿@model IEnumerable<FashionStore.Models.Reserve>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.documentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.codeProduct)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.documentType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.codeProduct)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idReserve }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idReserve }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idReserve })
+        </td>
+    </tr>
+}
+
+</table>

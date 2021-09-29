@@ -128,19 +128,48 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReserveController.cs" />
+    <Compile Include="Controllers\SaleController.cs" />
+    <Compile Include="Controllers\SellerController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>FashionStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FashionStoreModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FashionStoreModel.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FashionStoreModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FashionStoreModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FashionStoreModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FashionStoreModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>FashionStoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reserve.cs">
+      <DependentUpon>FashionStoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sale.cs">
+      <DependentUpon>FashionStoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Seller.cs">
+      <DependentUpon>FashionStoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Supplier.cs">
+      <DependentUpon>FashionStoreModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -156,6 +185,12 @@
     <Content Include="Models\FashionStoreModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FashionStoreModel.Context.cs</LastGenOutput>
+      <DependentUpon>FashionStoreModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\FashionStoreModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FashionStoreModel.edmx</DependentUpon>
+      <LastGenOutput>FashionStoreModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -163,9 +198,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FashionStoreModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\FashionStoreModel.edmx.diagram">
+    <Content Include="Models\FashionStoreModel.edmx.diagram">
       <DependentUpon>FashionStoreModel.edmx</DependentUpon>
-    </None>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -191,6 +226,36 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\Customer\Delete.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Reserve\Create.cshtml" />
+    <Content Include="Views\Reserve\Delete.cshtml" />
+    <Content Include="Views\Reserve\Details.cshtml" />
+    <Content Include="Views\Reserve\Edit.cshtml" />
+    <Content Include="Views\Reserve\Index.cshtml" />
+    <Content Include="Views\Sale\Create.cshtml" />
+    <Content Include="Views\Sale\Delete.cshtml" />
+    <Content Include="Views\Sale\Details.cshtml" />
+    <Content Include="Views\Sale\Edit.cshtml" />
+    <Content Include="Views\Sale\Index.cshtml" />
+    <Content Include="Views\Seller\Create.cshtml" />
+    <Content Include="Views\Seller\Delete.cshtml" />
+    <Content Include="Views\Seller\Details.cshtml" />
+    <Content Include="Views\Seller\Edit.cshtml" />
+    <Content Include="Views\Seller\Index.cshtml" />
+    <Content Include="Views\Supplier\Create.cshtml" />
+    <Content Include="Views\Supplier\Delete.cshtml" />
+    <Content Include="Views\Supplier\Details.cshtml" />
+    <Content Include="Views\Supplier\Edit.cshtml" />
+    <Content Include="Views\Supplier\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
